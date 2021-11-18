@@ -1,21 +1,14 @@
-// package Lab6
+package Lab6
 
-// import chisel3._
-// import org.scalatest._
-// import chisel3.util._
+import org.scalatest._
+import chisel3._
+import chiseltest._
 
-// class Task4 (val max: Int = 32) extends Module{
-//     val io = IO (new Bundle{
-//         val out = Output(UInt(log2Ceil(max).W))
-//         val up_down = Input(Bool())
-
-//     })
-//     val counter = RegInit (0.U(4.W))
-//     when (counter =/= max.U && io.up_down ===1.B) {
-//         counter := counter +1.U
-//     } .otherwise{
-//         counter := counter-1.U
-//     }
-    
-//     io.out := counter
-// }
+class Task4Test extends FreeSpec with ChiselScalatestTester{
+    "up_down_counter Test" in {
+        test(new Task4(32)){c=>
+            c.io.up_down.poke(1.B)
+            c.clock.step(5)
+        }
+    }
+}
